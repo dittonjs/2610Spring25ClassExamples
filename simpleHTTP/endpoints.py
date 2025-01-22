@@ -1,4 +1,5 @@
 from response import Response
+from middleware import loggingMiddlewareFactory
 
 def home(req):
     return Response(
@@ -9,6 +10,8 @@ def home(req):
         body="<h1>I am on the home page!<a href='/about'>Go to about</a></h1>",
     )
 
+
+@loggingMiddlewareFactory
 def about(req):
     return Response(
         version=req.version,

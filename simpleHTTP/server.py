@@ -1,6 +1,7 @@
 import socket
 from decoder import decode, encode
 from router import router
+from middleware import loggingMiddlewareFactory, notFoundMessageMiddlewareFactory
 
 # HTTP Request format:
 # <start line>
@@ -48,7 +49,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 continue
 
             request = decode(data)
-            response = router(request)
+            middlewareChain = notFoundMessageMiddlewareFactory(router)
+            response = middlewareChain(request)
             responseBytes = encode(response)
 
             connection.send(responseBytes)
