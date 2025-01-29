@@ -50,6 +50,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
             request = decode(data)
             middlewareChain = notFoundMessageMiddlewareFactory(router)
+            middlewareChain = loggingMiddlewareFactory(middlewareChain)
             response = middlewareChain(request)
             responseBytes = encode(response)
 

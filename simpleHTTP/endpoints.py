@@ -2,16 +2,17 @@ from response import Response
 from middleware import loggingMiddlewareFactory
 
 def home(req):
-    return Response(
-        version=req.version,
-        code=200,
-        reason="Ok",
-        headers={},
-        body="<h1>I am on the home page!<a href='/about'>Go to about</a></h1>",
-    )
+    with open("templates/index.html") as f:
+        body = f.read()
+        return Response(
+            version=req.version,
+            code=200,
+            reason="Ok",
+            headers={},
+            body=body
+        )
 
 
-@loggingMiddlewareFactory
 def about(req):
     return Response(
         version=req.version,
