@@ -3,29 +3,36 @@ from django.http import HttpResponse, HttpRequest, HttpResponseBadRequest
 import random
 from .models import User
 
-# dont do this for real! Use a database!
-USERS = []
 
 # Create your views here.
 def index(request):
+    # GET Users from database
+    users = User.objects.all()
+
     return render(request, 'core/index.html', {
         "random_num": random.randint(1, 100),
-        "users": USERS
+        "users": users
     })
 
 
 def users(request: HttpRequest):
     if request.method == "POST":
-        user = User(
+        # create the user in the database
+        User.objects.create(
             name=request.POST.get("name", "Default Name"),
             age=request.POST.get("age", 0),
-            email=request.POST.get("email", "default@example.com")
+            email=request.POST.get("email", "test@example.com")
         )
-        USERS.append(user)
+
         return redirect('/')
     else:
         return render(request, 'core/users.html')
 
+def user(request, user_id):
+    user = User.objects.get(id=user_id)
+    return render(request, 'core/user.html', {
+        "user": user
+    })
 
 # FOR GET REQUEST
 # def users(request: HttpRequest):

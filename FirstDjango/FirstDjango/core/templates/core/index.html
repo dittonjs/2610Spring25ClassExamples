@@ -12,7 +12,9 @@
   <a href="/users/">Create user</a>
   <div>
     {% for user in users %}
-      <p>{{user.name}} - {{user.age}} - {{user.email}}</p>
+    <div>
+      <a href="/users/{{user.id}}/">{{user.name}}</a>
+    </div>
     {% endfor %}
   </div>
 </body>
