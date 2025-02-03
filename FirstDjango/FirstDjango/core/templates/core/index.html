@@ -9,13 +9,11 @@
 <body>
   <h1>Welcome to My First Django Home Page</h1>
   <h2>Random number: {{random_num}}</h2>
-  <form action="/users/" method="post">
-    <label>
-      <input type="text" name="name" placeholder="Enter your name">
-      <input type="number" name="age" placeholder="Enter your age">
-      <input type="email" name="email" placeholder="Enter your email">
-      <button>Submit</button>
-    </label>
-  </form>
+  <a href="/users/">Create user</a>
+  <div>
+    {% for user in users %}
+      <p>{{user.name}} - {{user.age}} - {{user.email}}</p>
+    {% endfor %}
+  </div>
 </body>
 </html>

@@ -1,18 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseBadRequest
 import random
 from .models import User
+
+# dont do this for real! Use a database!
+USERS = []
+
 # Create your views here.
 def index(request):
     return render(request, 'core/index.html', {
-        "random_num": random.randint(1, 100)
+        "random_num": random.randint(1, 100),
+        "users": USERS
     })
 
 
 def users(request: HttpRequest):
-    return render(request, 'core/users.html', {
+    if request.method == "POST":
+        user = User(
+            name=request.POST.get("name", "Default Name"),
+            age=request.POST.get("age", 0),
+            email=request.POST.get("email", "default@example.com")
+        )
+        USERS.append(user)
+        return redirect('/')
+    else:
+        return render(request, 'core/users.html')
 
-    })
 
 # FOR GET REQUEST
 # def users(request: HttpRequest):

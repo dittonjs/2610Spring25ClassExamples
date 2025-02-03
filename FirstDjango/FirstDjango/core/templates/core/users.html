@@ -6,10 +6,13 @@
   <title>Users</title>
 </head>
 <body>
-  <h1>User Information</h1>
-  <div>A user was submitted with this info</div>
-  <div>Name: {{user.name}}</div>
-  <div>Email: {{user.email}}</div>
-  <div>Age: {{user.age}}</div>
+  <form action="/users/" method="post">
+    <label>
+      <input type="text" name="name" placeholder="Enter your name">
+      <input type="number" name="age" placeholder="Enter your age">
+      <input type="email" name="email" placeholder="Enter your email">
+      <button>Submit</button>
+    </label>
+  </form>
 </body>
 </html>
