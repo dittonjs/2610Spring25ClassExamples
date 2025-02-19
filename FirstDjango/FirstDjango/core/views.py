@@ -18,13 +18,13 @@ def index(request):
 def users(request: HttpRequest):
     if request.method == "POST":
         # create the user in the database
-        User.objects.create(
+        user = User.objects.create(
             name=request.POST.get("name", "Default Name"),
             age=request.POST.get("age", 0),
             email=request.POST.get("email", "test@example.com")
         )
 
-        return redirect('/')
+        return redirect('/users/' + str(user.id) + '/')
     else:
         return render(request, 'core/users.html')
 
