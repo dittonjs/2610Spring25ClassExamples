@@ -12,6 +12,6 @@ for user in users:
     rb_cursor.execute("SELECT password FROM password_map WHERE hash=?", (user[2],))
     password = rb_cursor.fetchone()
     if not password:
-        print(f"Count not find password for user {user[1]}")
+        print(f"Could not find password for user {user[1]}")
     else:
         print(f"Password for user {user[1]} is {password[0]}")

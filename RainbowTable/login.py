@@ -1,11 +1,9 @@
 import hashlib
 import sqlite3
+from hash_password import hash_password
 
 def compare(password, db_hash, db_salt):
-    hash = hashlib.sha256(bytes(password+db_salt, "UTF-8")).hexdigest()
-
-    for _ in range(10):
-        hash = hashlib.sha256(bytes(hash, "UTF-8")).hexdigest()
+    hash, _ = hash_password(db_hash, db_salt)
 
     return db_hash == hash
 

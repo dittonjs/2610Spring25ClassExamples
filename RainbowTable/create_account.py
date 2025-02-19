@@ -4,14 +4,12 @@ import sqlite3
 # connect to database and create table
 conn = sqlite3.connect("my_app_db.sqlite")
 conn.execute(
-"""
-CREATE TABLE IF NOT EXISTS user(
+"""CREATE TABLE IF NOT EXISTS user(
   id INTEGER PRIMARY KEY AUTOINCREMENT ,
   email TEXT NOT NULL,
   password_hash TEXT NOT NULL,
   salt TEXT NOT NULL
-)
-"""
+)"""
 )
 
 # prompt user for their password
