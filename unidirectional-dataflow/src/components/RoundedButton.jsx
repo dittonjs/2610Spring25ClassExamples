@@ -1,5 +1,5 @@
-export function RoundedButton(props) {
+export function RoundedButton({ onClick, children }) {
   return (
-    <button class="rounded-button uppercase">{props.children}</button>
+    <button className="rounded-button uppercase" onClick={onClick}>{children}</button>
   )
 }
