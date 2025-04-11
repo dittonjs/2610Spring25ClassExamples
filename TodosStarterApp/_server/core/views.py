@@ -29,6 +29,7 @@ def index(req):
 
 @login_required
 def todos(req):
+    req.POST
     if req.method == "POST":
         body = json.loads(req.body)
         todo = Todo.objects.create(
@@ -40,6 +41,20 @@ def todos(req):
         return JsonResponse({"todo": model_to_dict(todo)})
 
 
-    todos = Todo.objects.filter(user=req.user)
+    todos = req.user.todo_set.all()
     return JsonResponse({"todos": [model_to_dict(todo) for todo in todos]})
 
+@login_required
+def todo(req, id):
+    if req.method == "PUT":
+        body = json.loads(req.body)
+        todo = Todo.objects.get(id=id)
+        todo.completed = body["completed"]
+        todo.save()
+        return JsonResponse({"todo": model_to_dict(todo)})
+    if req.method == "DELETE":
+        todo = Todo.objects.get(id=id)
+        todo.delete()
+        return JsonResponse({"todo": model_to_dict(todo)})
+
+    return JsonResponse({"todo": model_to_dict(todo)})
