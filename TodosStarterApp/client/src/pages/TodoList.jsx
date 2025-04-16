@@ -1,25 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Todo } from "../components/Todo";
+import { useFetch } from "../hooks/useFetch";
+import { useTodos } from "../hooks/useTodos";
 
 export function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const todos = useTodos();
 
-  useEffect(() => {
-    async function fetchTodos() {
-      const response = await fetch("/todos/", {
-        credentials: "same-origin",
-        headers: {
-          "Accept": "application/json",
-        }
-      });
-      if (response.ok) {
-        const {todos} = await response.json();
-        setTodos(todos);
-      }
-    }
-    fetchTodos();
-  }, [])
   // This is a placeholder for the TodoList component
   return (
     <div>

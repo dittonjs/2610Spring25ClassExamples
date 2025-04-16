@@ -7,6 +7,7 @@ from .models import Todo
 import json
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
+import time
 
 # Load manifest when server launches
 MANIFEST = {}
@@ -29,7 +30,6 @@ def index(req):
 
 @login_required
 def todos(req):
-    req.POST
     if req.method == "POST":
         body = json.loads(req.body)
         todo = Todo.objects.create(
@@ -47,6 +47,8 @@ def todos(req):
 @login_required
 def todo(req, id):
     if req.method == "PUT":
+        time.sleep(3)
+        notavariable.doThing()
         body = json.loads(req.body)
         todo = Todo.objects.get(id=id)
         todo.completed = body["completed"]
